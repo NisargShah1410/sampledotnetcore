@@ -26,7 +26,6 @@ jobs:
         dotnet-version: 3.1.301
         include-prerelease: false
 
-    -
     - name: Sonarqube Begin
       run: | 
         dotnet tool install --global dotnet-sonarscanner
