@@ -16,11 +16,28 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp']
+
 
     steps:
     - uses: actions/checkout@v2
       with:
           fetch-depth: 0
+          
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+        
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
@@ -55,6 +72,9 @@ jobs:
     
     - name: dotnet publish
       run: dotnet publish ${{ env.PATH_TO_SOLUTION }} -c Release -o ${{env.DOTNET_ROOT}}/myapp
+    
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
