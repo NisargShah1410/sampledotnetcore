@@ -18,7 +18,6 @@ namespace MySampleWebApp
             {
 
             }
-            string pwd = Constant.DefaultCertificatePassword;
             return a + b;
         }
 
