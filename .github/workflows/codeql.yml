@@ -5,7 +5,7 @@ name: CodeQL
 on:
   push:
     branches:
-      - main1
+      - main
 env:
   AZURE_WEBAPP_NAME: 'toolkitdemo-dotnetcore' 
   AZURE_WEBAPP_PACKAGE_PATH: .
@@ -64,6 +64,7 @@ jobs:
         uses: github/codeql-action/init@v1
         with:
           languages: ${{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yml
       
       - name: Autobuild
         uses: github/codeql-action/autobuild@v1
